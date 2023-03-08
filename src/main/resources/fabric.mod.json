@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "vm",
+  "version": "${version}",
+
+  "name": "VR Mod",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "Mani"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/vm/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.mani.vm.VRMod"
+    ]
+  },
+  "mixins": [
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.14",
+    "fabric-api": "*",
+    "minecraft": "~1.19.3",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
