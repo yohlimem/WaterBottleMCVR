@@ -1,5 +1,7 @@
 package net.mani.vm.features;
 
+import net.blf02.vrapi.api.IVRAPI;
+import net.blf02.vrapi.client.ReflectionConstants;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.mani.vm.VRMod;
 import net.minecraft.block.*;
@@ -29,11 +31,23 @@ public class FillBottleWithWater implements ClientTickEvents.StartTick{
     public void onStartTick(MinecraftClient client) {
         if(client.player == null) return;
         if(VRMod.getWorld() == null) return;
+
         // get player
         PlayerEntity player = client.player;
+//        VRMod.LOGGER.info(VRPlugin.apiInstance.getClass().toString());
+//        VRMod.LOGGER.info(String.valueOf(VRPlugin.apiInstance.getClass()));
+//        VRMod.LOGGER.info(String.valueOf(player));
         // controller velocity calculated by taking the current controller position with the last position **TIMES 100** to make it fast enough
         // VRPlugin.apiInstance.isLeftHanded(player) ? 1 : 0 means that if the player is left-handed (true) say 1 else say 0
-        Vec3d controllerVel = (VRPlugin.apiInstance.getRenderVRPlayer().getController(VRPlugin.apiInstance.isLeftHanded(player) ? 1 : 0).position().subtract(lastControllerPos)).multiply(100d);
+        Vec3d controllerVel;
+        try{
+            controllerVel = (VRPlugin.apiInstance.getRenderVRPlayer().getController(VRPlugin.apiInstance.isLeftHanded(player) ? 1 : 0).position().subtract(lastControllerPos)).multiply(100d);
+
+        } catch (RuntimeException re){
+            return;
+        }
+        VRMod.LOGGER.info(String.valueOf(VRPlugin.apiInstance.isLeftHanded(player)));
+
         // calculate the magnitude of the vector AKA speed
         double controllerVelMag = Math.sqrt(controllerVel.x * controllerVel.x + controllerVel.y * controllerVel.y + controllerVel.z * controllerVel.z);
         // get the block at the position of the correct hand
