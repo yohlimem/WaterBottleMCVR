@@ -46,7 +46,6 @@ public class FillBottleWithWater implements ClientTickEvents.StartTick{
         } catch (RuntimeException re){
             return;
         }
-        VRMod.LOGGER.info(String.valueOf(VRPlugin.apiInstance.isLeftHanded(player)));
 
         // calculate the magnitude of the vector AKA speed
         double controllerVelMag = Math.sqrt(controllerVel.x * controllerVel.x + controllerVel.y * controllerVel.y + controllerVel.z * controllerVel.z);
